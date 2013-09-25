@@ -71,7 +71,8 @@ app.get('/recaptcha', function (req, res){
 		recaptcha.verify(function (success, error_code) {
 			res.type('application/json');
 	        res.jsonp({
-	        	isCorrect: success
+	        	isCorrect: success,
+	        	error: error_code
 	        });
 	    });
 	/*} else {

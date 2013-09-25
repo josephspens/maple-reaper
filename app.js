@@ -8,7 +8,7 @@ app.configure(function () {
 });
 
 app.get('/mail', function (req, res){
-	if (req.headers.host === 'localhost:5000' || req.ip === '67.83.36.74' || req.get('Referer') === 'http://josephspens.github.io/') {
+	if (req.ip === '127.0.0.1' || req.ip === '67.83.36.74' || req.get('Referer') === 'http://josephspens.github.io/') {
 		var nodemailer = require('nodemailer');
 
 		// create reusable transport method (opens pool of SMTP connections)
@@ -53,7 +53,7 @@ app.get('/mail', function (req, res){
 });
 
 app.get('/recaptcha', function (req, res){
-	if (req.headers.host === 'localhost:5000' || req.ip === '67.83.36.74' || req.get('Referer') === 'http://josephspens.github.io/') {
+	if (req.ip === '127.0.0.1' || req.ip === '67.83.36.74' || req.get('Referer') === 'http://josephspens.github.io/') {
 		var Recaptcha = require('recaptcha').Recaptcha;
 
 		var recaptcha = new Recaptcha(

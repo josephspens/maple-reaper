@@ -69,6 +69,8 @@ app.get('/recaptcha', function (req, res){
 		recaptcha.verify(function (success, error_code) {
 	        res.json({ isCorrect: success });
 	    });
+	} else {
+		res.send('Sorry, I don\'t talk to strangers.');
 	}
 });
 

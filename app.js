@@ -8,7 +8,7 @@ app.configure(function () {
 });
 
 app.get('/mail', function (req, res){
-	if (req.ip === '127.0.0.1' || req.ip === '67.83.36.74' || req.get('Referer') === 'http://josephspens.github.io/') {
+	if (req.ip === '127.0.0.1' || req.ip === '10.92.242.199' || req.get('Referer') === 'http://josephspens.github.io/') {
 		var nodemailer = require('nodemailer');
 
 		// create reusable transport method (opens pool of SMTP connections)
@@ -48,12 +48,12 @@ app.get('/mail', function (req, res){
 		    smtpTransport.close(); // shut down the connection pool, no more messages
 		});
 	} else {
-		res.send('Sorry, I don\'t talk to strangers.' + req.ip);
+		res.send('Sorry, I don\'t talk to strangers. ' + req.ip);
 	}
 });
 
 app.get('/recaptcha', function (req, res){
-	if (req.ip === '127.0.0.1' || req.ip === '67.83.36.74' || req.get('Referer') === 'http://josephspens.github.io/') {
+	if (req.ip === '127.0.0.1' || req.ip === '10.92.242.199' || req.get('Referer') === 'http://josephspens.github.io/') {
 		var Recaptcha = require('recaptcha').Recaptcha;
 
 		var recaptcha = new Recaptcha(
@@ -70,7 +70,7 @@ app.get('/recaptcha', function (req, res){
 	        res.json({ isCorrect: success });
 	    });
 	} else {
-		res.send('Sorry, I don\'t talk to strangers.' + req.ip);
+		res.send('Sorry, I don\'t talk to strangers. ' + req.ip);
 	}
 });
 

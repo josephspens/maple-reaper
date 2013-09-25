@@ -1,0 +1,27 @@
+{
+  "name": "web-services",
+  "version": "0.0.0",
+  "main": "app.js",
+  "description": "Various web services to be used cross projects",
+  "homepage": "https://github.com/josephspens/web-services",
+  "bugs": "https://github.com/josephspens/web-services/issues",
+  "author": {
+    "name": "Joseph Spens",
+    "email": "jpspens@gmail.com",
+    "url": "http://spens.us/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/josephspens/web-services"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "dependencies": {
+    "express": "3.x",
+    "nodemailer": "~0.5.2",
+    "recaptcha": "~1.2.0"
+  }
+}

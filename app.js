@@ -1,9 +1,9 @@
 var express = require('express'),
+	port = process.env.PORT || 5000,
 	app = express();
 
-app.use(express.logger());
-
 app.configure(function () {
+	app.use(express.logger());
 	app.use(express.bodyParser());
 });
 
@@ -52,7 +52,7 @@ app.get('/mail', function (req, res){
 	}
 });
 
-app.post('/recaptcha', function (req, res){
+app.get('/recaptcha', function (req, res){
 	if (req.connection.remoteAddress === '127.0.0.1') {
 		var Recaptcha = require('recaptcha').Recaptcha;
 
@@ -72,7 +72,6 @@ app.post('/recaptcha', function (req, res){
 	}
 });
 
-var port = process.env.PORT || 5000;
 app.listen(port, function () {
 	console.log("Listening on " + port);
 });

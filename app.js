@@ -34,13 +34,15 @@ app.get('/mail', function (req, res){
 		smtpTransport.sendMail(mailOptions, function (error, response){
 		    if (error) {
 		        console.log(error);
-		        res.json({
+		        res.type('application/json');
+		        res.jsonp({
 		        	success: false,
 		        	error: error
 		        });
 		    } else {
 		        console.log('Message sent: ' + response.message);
-		        res.json({
+		        res.type('application/json');
+		        res.jsonp({
 		        	success: true
 		        });
 		    }
@@ -67,7 +69,10 @@ app.get('/recaptcha', function (req, res){
 		);
 
 		recaptcha.verify(function (success, error_code) {
-	        res.json({ isCorrect: success });
+			res.type('application/json');
+	        res.jsonp({
+	        	isCorrect: success
+	        });
 	    });
 	/*} else {
 		res.send('Sorry, I don\'t talk to strangers. ' + req.ip);

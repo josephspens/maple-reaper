@@ -48,7 +48,7 @@ app.get('/mail', function (req, res){
 		    smtpTransport.close(); // shut down the connection pool, no more messages
 		});
 	} else {
-		res.send('Sorry, I don\'t talk to strangers.');
+		res.send('Sorry, I don\'t talk to strangers.' + req.ip);
 	}
 });
 
@@ -70,7 +70,7 @@ app.get('/recaptcha', function (req, res){
 	        res.json({ isCorrect: success });
 	    });
 	} else {
-		res.send('Sorry, I don\'t talk to strangers.');
+		res.send('Sorry, I don\'t talk to strangers.' + req.ip);
 	}
 });
 

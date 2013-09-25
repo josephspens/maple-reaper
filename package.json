@@ -1,7 +1,6 @@
 {
   "name": "web-services",
   "version": "0.0.0",
-  "repository": "https://github.com/josephspens/web-services",
   "main": "app.js",
   "description": "Various web services to be used cross projects",
   "homepage": "https://github.com/josephspens/web-services",

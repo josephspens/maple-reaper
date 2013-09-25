@@ -4,7 +4,6 @@ var express = require('express'),
 
 app.configure(function () {
 	app.use(express.logger());
-	app.use(express.bodyParser());
 });
 
 app.get('/mail', function (req, res){
@@ -62,9 +61,9 @@ app.get('/recaptcha', function (req, res){
 			process.env.RECAPTCHA_PUBLIC_KEY,
 			process.env.RECAPTCHA_PRIVATE_KEY,
 			{
-		        remoteip:  req.connection.remoteAddress,
-		        challenge: req.body.recaptchaChallengeField,
-		        response:  req.body.recaptchaResponseField
+		        remoteip:  req.ip,
+		        challenge: req.query.recaptchaChallengeField,
+		        response:  req.query.recaptchaResponseField
 		    }
 		);
 

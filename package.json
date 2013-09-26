@@ -22,7 +22,7 @@
   "dependencies": {
     "express": "3.x",
     "recaptcha": "~1.2.0",
-    "mandrill": "~0.1.0"
+    "mandrill-api": "~1.0.35"
   },
   "engines": {
     "node": "0.10.x",

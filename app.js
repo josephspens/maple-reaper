@@ -1,4 +1,5 @@
 var express = require('express'),
+	mandrill = require('mandrill-api/mandrill'),
 	port = process.env.PORT || 5000,
 	app = express();
 
@@ -25,10 +26,13 @@ app.get('/mail', function (req, res){
 			    }
 			},
 			"async": false,
-			"ip_pool": "Main Pool",
-			"send_at": "example send_at"
+			"ip_pool": "Main Pool"
 		}, function (result) {
 		    console.log(result);
+		    res.type('application/json');
+	        res.jsonp({
+	        	success: true
+	        });
 		    /*[{
 	            "email": "recipient.email@example.com",
 	            "status": "sent",
@@ -39,6 +43,11 @@ app.get('/mail', function (req, res){
 		    // Mandrill returns the error as an object with name and message keys
 		    console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
 		    // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+		    res.type('application/json');
+	        res.jsonp({
+	        	success: false,
+	        	error: error
+	        });
 		});
 	/*} else {
 		res.send('Sorry, I don\'t talk to strangers. ' + req.ip);

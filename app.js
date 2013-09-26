@@ -8,45 +8,37 @@ app.configure(function () {
 
 app.get('/mail', function (req, res){
 	//if (req.ip === '127.0.0.1' || req.ip === '10.92.242.199' || req.get('Referer') === 'http://josephspens.github.io/') {
-		var nodemailer = require('nodemailer');
-
-		// create reusable transport method (opens pool of SMTP connections)
-		var smtpTransport = nodemailer.createTransport('SMTP',{
-		    service: 'Gmail',
-		    auth: {
-		        user: process.env.GMAIL_USER,
-		        pass: process.env.GMAIL_PASS
-		    }
-		});
-
-		// setup e-mail data with unicode symbols
-		var mailOptions = {
-		    from: 'Contact Form <jpspens@gmail.com>', // sender address
-		    to: 'Joseph Spens <jpspens@gmail.com>', // list of receivers
-		    replyTo: req.query.name + ' <' + req.query.email + '>',
-		    subject: req.query.subject, // Subject line
-		    text: req.query.message, // plaintext body
-		    html: '<b>' + req.query.message + '</b>' // html body
-		}
-
-		// send mail with defined transport object
-		smtpTransport.sendMail(mailOptions, function (error, response){
-		    if (error) {
-		        console.log(error);
-		        res.type('application/json');
-		        res.jsonp({
-		        	success: false,
-		        	error: error
-		        });
-		    } else {
-		        console.log('Message sent: ' + response.message);
-		        res.type('application/json');
-		        res.jsonp({
-		        	success: true
-		        });
-		    }
-
-		    smtpTransport.close(); // shut down the connection pool, no more messages
+		mandrill_client = new mandrill.Mandrill(process.env.MANDRILL_KEY);
+		mandrill_client.messages.send({
+			"message": {
+			    "html": '<b>' + req.query.message + '</b>',
+			    "text": req.query.message,
+			    "subject": req.query.subject,
+			    "from_email": req.query.email,
+			    "from_name": req.query.name,
+			    "to": [{
+		            "email": "jpspens@gmail.com",
+		            "name": "Joseph Spens"
+		        }],
+			    "headers": {
+			        "Reply-To": req.query.name + ' <' + req.query.email + '>'
+			    }
+			},
+			"async": false,
+			"ip_pool": "Main Pool",
+			"send_at": "example send_at"
+		}, function (result) {
+		    console.log(result);
+		    /*[{
+	            "email": "recipient.email@example.com",
+	            "status": "sent",
+	            "reject_reason": "hard-bounce",
+	            "_id": "abc123abc123abc123abc123abc123"
+	        }]*/
+		}, function (e) {
+		    // Mandrill returns the error as an object with name and message keys
+		    console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+		    // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
 		});
 	/*} else {
 		res.send('Sorry, I don\'t talk to strangers. ' + req.ip);
